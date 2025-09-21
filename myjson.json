@@ -1,0 +1,15 @@
+{
+  "reportTitle": "Sales Report - September 2025",
+  "generatedOn": "2025-09-21",
+  "summary": {
+    "totalSales": 154000,
+    "totalOrders": 320,
+    "topProduct": "Wireless Headphones"
+  },
+  "salesByRegion": [
+    { "region": "North America", "orders": 120, "sales": 65000 },
+    { "region": "Europe", "orders": 90, "sales": 42000 },
+    { "region": "Asia", "orders": 70, "sales": 32000 },
+    { "region": "South America", "orders": 40, "sales": 15000 }
+  ]
+}
