@@ -1,18 +1,62 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>my-first-website</title>
-  <LINK href="styles.css" rel="stylesheet" type="text/css">
+  <title>Sales Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .summary { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+    th { background: #f2f2f2; }
+  </style>
 </head>
+<body>a
+  <h1 id="reportTitle"></h1>
+  <p><b>Generated On:</b> <span id="generatedOn"></span></p>
 
-<body>
+  <div class="summary">
+    <p><b>Total Sales:</b> $<span id="totalSales"></span></p>
+    <p><b>Total Orders:</b> <span id="totalOrders"></span></p>
+    <p><b>Top Product:</b> <span id="topProduct"></span></p>
+  </div>
 
-<img src="https://octodex.github.com/images/daftpunktocat-thomas.gif" id="octocat" alt="octocat-gif" />
+  <h2>Sales by Region</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Region</th>
+        <th>Orders</th>
+        <th>Sales ($)</th>
+      </tr>
+    </thead>
+    <tbody id="regionTable"></tbody>
+  </table>
 
-<!-- Change this code here by copy and pasting your template on line 15 -->
-<p>Welcome to your first GitHub Pages website!</p>
+  <script>
+    // Fetch JSON from file
+    fetch("myjson.json")
+      .then(response => response.json())
+      .then(data => {
+        // Populate summary
+        document.getElementById("reportTitle").innerText = data.reportTitle;
+        document.getElementById("generatedOn").innerText = data.generatedOn;
+        document.getElementById("totalSales").innerText = data.summary.totalSales.toLocaleString();
+        document.getElementById("totalOrders").innerText = data.summary.totalOrders;
+        document.getElementById("topProduct").innerText = data.summary.topProduct;
 
+        // Populate table
+        const tableBody = document.getElementById("regionTable");
+        data.salesByRegion.forEach(item => {
+          const row = `<tr>
+            <td>${item.region}</td>
+            <td>${item.orders}</td>
+            <td>${item.sales.toLocaleString()}</td>
+          </tr>`;
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch(err => console.error("Error loading JSON:", err));
+  </script>
 </body>
 </html>
